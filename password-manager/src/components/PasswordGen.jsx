@@ -1,9 +1,8 @@
 import React from "react";
 import Button from "./Button";
-
-const Manager = () => {
+const PasswordGen = () => {
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 w-2xl mx-10 p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
+    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 max-w-2xl mx-auto p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
       <h1 className="text-center text-2xl font-semibold mb-6">
         Password Manager
       </h1>
@@ -42,4 +41,4 @@ const Manager = () => {
   );
 };
 
-export default Manager;
+export default PasswordGen;
