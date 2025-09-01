@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 function Item({ url, usn, pass }) {
   // initialize state for copy and cursor position
   const [copy, setCopy] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-
 
   function copyToClipboard(e) {
     if (!copy) {
@@ -64,6 +63,37 @@ function Item({ url, usn, pass }) {
 }
 
 const Display = () => {
+  // State Variables for items
+  const [items, setItems] = useState([]);
+
+  // Load all password from local storage on page reload
+  useEffect(() => {
+    // Set up temporary variable
+    const tempArr = [];
+
+    // Loop through all the items
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+
+      try {
+        //
+        const value = JSON.parse(localStorage.getItem(key));
+
+        //  Push if the object has expected structure in local storage {username, password, URL}
+        if (value?.username && value?.password && value?.url) {
+          tempArr.push({
+            url: value.url,
+            usn: value.username,
+            pass: value.password,
+          });
+        }
+      } catch (err) {
+        console.log("Error Parsing localStorage item", key, err);
+      }
+    }
+    setItems(tempArr);
+  }, []);
+
   return (
     <div className="bg-slate-800 w-[60vw] h-[85vh] my-10 mr-15 ml-5 text-slate-100 rounded-2xl border border-slate-700 shadow-lg overflow-hidden">
       {/* Header */}
@@ -73,8 +103,19 @@ const Display = () => {
 
       {/* Password List */}
       <ul className="divide-y divide-slate-700 overflow-y-auto h-[calc(85vh-4rem)]">
-        <Item url={"www.google.com"} usn={"Pearson"} pass={"12345"}/>
-        <Item url={"www.google.com"} usn={"Pearson"} pass={"345"}/>
+        {/* <Item url={"www.google.com"} usn={"Pearson"} pass={"12345"} />
+        <Item url={"www.google.com"} usn={"Pearson"} pass={"345"} /> */}
+
+        {/* Render all items on page load if items exist on local storage*/}
+        {items.length > 0 ? (
+          // loop through each items
+          items.map((item, i) => (
+            // Render a component for each item
+            <Item url={item.URL} usn={item.userName} pass={item.password} key={i} />
+          ))
+        ) : (
+          <p className="text-slate-400">No saved passwords.</p>
+        )}
       </ul>
     </div>
   );

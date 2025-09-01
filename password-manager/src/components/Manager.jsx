@@ -9,7 +9,6 @@ const Manager = () => {
   const [URL, setURL] = useState("");
   const uID = useRef(0);
 
-
   // Handler for the Add button
   const handleAdd = (e) => {
     e.preventDefault();
@@ -18,6 +17,7 @@ const Manager = () => {
     const data = {userName, password, URL};
     localStorage.setItem(uID.current, JSON.stringify(data));
     uID.current += 1;
+
   };
 
   return (
