@@ -6,7 +6,7 @@ const PasswordGen = () => {
       <h1 className="text-center text-2xl font-semibold mb-6">
         Password Generator
       </h1>
-
+      {/* password generator div + copy */}
       <div className="flex">
         <div className="w-1/2 m-auto text-center text-slate-100 bg-slate-800 border-slate-700 border-1 rounded-xl h-10 flex items-center justify-around">
           <input type="text" placeholder="Password" className="p-3" disabled/>

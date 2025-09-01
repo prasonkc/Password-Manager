@@ -1,6 +1,27 @@
 import React from "react";
+import { useState } from "react";
 
 function Item({ url, usn, pass }) {
+  // initialize state for copy and cursor position
+  const [copy, setCopy] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+
+  function copyToClipboard(e) {
+    if (!copy) {
+      // Change the state of copy variable
+      setCopy(true);
+      // Prevent browser default behaviour
+      e.stopPropagation();
+      // Copy the text to clipboard
+      navigator.clipboard.writeText(pass);
+      // Read the cursor position and save it to position variable
+      setCursorPos({ x: e.clientX, y: e.clientY });
+      // Automatically set copy variable to false after 800ms
+      setTimeout(() => setCopy(false), 800);
+    }
+  }
+
   return (
     <>
       {/* Item */}
@@ -10,9 +31,29 @@ function Item({ url, usn, pass }) {
           <p className="text-slate-400 text-sm">Username: {usn}</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm cursor-pointer">
+          {/* Copy Button */}
+          <button
+            className="px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm cursor-pointer"
+            onClick={copyToClipboard}
+          >
             Copy
           </button>
+          {/* Popup if copy button is clicked */}
+          {copy && (
+            <div
+              className="bg-black text-white px-3 py-2 rounded-lg text-sm shadow-lg animate-fadeInOut"
+              style={{
+                position: "fixed",
+                left: cursorPos.x + 15 + "px",
+                top: cursorPos.y + 15 + "px",
+                pointerEvents: "none",
+                zIndex: 999,
+              }}
+            >
+              Copied!
+            </div>
+          )}
+
           <button className="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-sm cursor-pointer">
             Delete
           </button>
@@ -30,11 +71,10 @@ const Display = () => {
         <h2 className="text-xl font-semibold">Saved Passwords</h2>
       </div>
 
-      {/* List */}
+      {/* Password List */}
       <ul className="divide-y divide-slate-700 overflow-y-auto h-[calc(85vh-4rem)]">
-        {/* Another Item */}
-        <Item url={"www.google.com"} usn={"Pearson"}/>
-        <Item url={"www.google.com"} usn={"Pearson"}/>
+        <Item url={"www.google.com"} usn={"Pearson"} pass={"12345"}/>
+        <Item url={"www.google.com"} usn={"Pearson"} pass={"345"}/>
       </ul>
     </div>
   );
