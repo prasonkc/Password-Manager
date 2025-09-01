@@ -4,8 +4,8 @@ const Navbar = () => {
   return (
 
     // Navbar
-    <nav className='flex items-center justify-around h-20 bg-green-200'>
-        <div className="logo font-bold">
+    <nav className='flex items-center justify-between h-20 bg-slate-900 text-slate-100 p-10'>
+        <div className="logo font-bold cursor-pointer">
             Password Manager
         </div>
         <ul className='flex gap-4'>
