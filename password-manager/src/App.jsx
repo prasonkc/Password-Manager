@@ -10,7 +10,7 @@ function App() {
     <>
       <div>
         <Navbar />
-        <div className="flex mx-auto">
+        <div className="flex">
           {/* Left side - password import and generator */}
           <div className="flex-col">
               <Manager />

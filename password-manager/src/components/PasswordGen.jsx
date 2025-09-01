@@ -4,39 +4,22 @@ const PasswordGen = () => {
   return (
     <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 max-w-2xl mx-auto p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
       <h1 className="text-center text-2xl font-semibold mb-6">
-        Password Manager
+        Password Generator
       </h1>
 
-      {/* Form Section */}
-      <form className="space-y-4">
-        {/* Website URL */}
+      <div className="flex justify-around">
+        <div className="w-1/2 m-auto text-center text-slate-100 bg-slate-800 border-slate-700 border-1 rounded-xl h-10 flex items-center justify-center">
+          Password
+        </div>
         <div>
-          <input
-            className="w-full h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
-            type="text"
-            placeholder="Enter the website URL"
-          />
+          <img src="./" alt="image" />
         </div>
+      </div>
 
-        {/* Username + Password */}
-        <div className="flex gap-4">
-          <input
-            className="flex-1 h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
-            type="text"
-            placeholder="Username"
-          />
-          <input
-            className="flex-1 h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
-            type="password"
-            placeholder="Password"
-          />
-        </div>
-
-        {/* Button */}
-        <div className="text-center pt-2">
-          <Button btnTxt={"Add"} />
-        </div>
-      </form>
+      {/* Button */}
+      <div className="text-center pt-2">
+        <Button btnTxt={"Generate"} />
+      </div>
     </div>
   );
 };

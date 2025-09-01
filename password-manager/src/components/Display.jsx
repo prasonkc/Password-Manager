@@ -24,7 +24,7 @@ function Item({ url, usn, pass }) {
 
 const Display = () => {
   return (
-    <div className="bg-slate-800 w-[50vw] h-[85vh] my-10 text-slate-100 rounded-2xl border border-slate-700 shadow-lg overflow-hidden">
+    <div className="bg-slate-800 w-[60vw] h-[85vh] my-10 mr-15 ml-5 text-slate-100 rounded-2xl border border-slate-700 shadow-lg overflow-hidden">
       {/* Header */}
       <div className="px-6 py-4 border-b border-slate-700">
         <h2 className="text-xl font-semibold">Saved Passwords</h2>
