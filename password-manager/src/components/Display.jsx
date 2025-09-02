@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-function DisplayItem({ url, usn, pass }) {
+function DisplayItem({ uID, url, usn, pass }) {
   // initialize state for copy and cursor position
   const [copy, setCopy] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -19,6 +19,10 @@ function DisplayItem({ url, usn, pass }) {
       // Automatically set copy variable to false after 800ms
       setTimeout(() => setCopy(false), 800);
     }
+  }
+
+  function deleteItem() {
+    localStorage.removeItem(uID);
   }
 
   return (
@@ -53,7 +57,10 @@ function DisplayItem({ url, usn, pass }) {
             </div>
           )}
 
-          <button className="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-sm cursor-pointer">
+          <button
+            className="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-sm cursor-pointer"
+            onClick={deleteItem}
+          >
             Delete
           </button>
         </div>
@@ -62,8 +69,7 @@ function DisplayItem({ url, usn, pass }) {
   );
 }
 
-const Display = ({items, setItems}) => {
-
+const Display = ({ items, setItems }) => {
   // Load all password from local storage on page reload
   useEffect(() => {
     // Set up temporary variable
@@ -80,8 +86,9 @@ const Display = ({items, setItems}) => {
         //  Push if the object has expected structure in local storage {username, password, URL}
         if (value?.userName && value?.password && value?.URL) {
           tempArr.push({
-            usn: value.userName,  
-            pass: value.password, 
+            uID: value.uID,
+            usn: value.userName,
+            pass: value.password,
             url: value.URL,
           });
         }
@@ -110,6 +117,7 @@ const Display = ({items, setItems}) => {
           items.map((item, i) => (
             // Render a component for each item
             <DisplayItem
+              uID={item.uID}
               url={item.url}
               usn={item.usn}
               pass={item.pass}
