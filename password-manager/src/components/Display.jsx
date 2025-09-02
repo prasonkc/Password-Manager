@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-function Item({ url, usn, pass }) {
+function DisplayItem({ url, usn, pass }) {
   // initialize state for copy and cursor position
   const [copy, setCopy] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -64,7 +64,7 @@ function Item({ url, usn, pass }) {
 
 const Display = () => {
   // State Variables for items
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([{}]);
 
   // Load all password from local storage on page reload
   useEffect(() => {
@@ -80,11 +80,11 @@ const Display = () => {
         const value = JSON.parse(localStorage.getItem(key));
 
         //  Push if the object has expected structure in local storage {username, password, URL}
-        if (value?.username && value?.password && value?.url) {
+        if (value?.userName && value?.password && value?.URL) {
           tempArr.push({
-            url: value.url,
-            usn: value.username,
-            pass: value.password,
+            url: value.URL,       
+            usn: value.userName,  
+            pass: value.password, 
           });
         }
       } catch (err) {
@@ -92,6 +92,7 @@ const Display = () => {
       }
     }
     setItems(tempArr);
+    console.log(items.URL, items.userName, items.password);
   }, []);
 
   return (
@@ -111,10 +112,15 @@ const Display = () => {
           // loop through each items
           items.map((item, i) => (
             // Render a component for each item
-            <Item url={item.URL} usn={item.userName} pass={item.password} key={i} />
+            <DisplayItem
+              url={item.url}
+              usn={item.usn}
+              pass={item.pass}
+              key={i}
+            />
           ))
         ) : (
-          <p className="text-slate-400">No saved passwords.</p>
+          <p className="text-slate-400 p-5">No saved passwords.</p>
         )}
       </ul>
     </div>
