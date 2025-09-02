@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Button from "./Button";
 import { useState } from "react";
 
-const Manager = () => {
+const Manager = ({items, setItems}) => {
   // States for data
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +18,8 @@ const Manager = () => {
     localStorage.setItem(uID.current, JSON.stringify(data));
     uID.current += 1;
 
+    // Refresh the state by calling the item
+    setItems(prev => [...prev, data])
   };
 
   return (

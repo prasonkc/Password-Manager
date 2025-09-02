@@ -62,9 +62,7 @@ function DisplayItem({ url, usn, pass }) {
   );
 }
 
-const Display = () => {
-  // State Variables for items
-  const [items, setItems] = useState([{}]);
+const Display = ({items, setItems}) => {
 
   // Load all password from local storage on page reload
   useEffect(() => {
@@ -76,15 +74,15 @@ const Display = () => {
       const key = localStorage.key(i);
 
       try {
-        //
+        // get the value for each key
         const value = JSON.parse(localStorage.getItem(key));
 
         //  Push if the object has expected structure in local storage {username, password, URL}
         if (value?.userName && value?.password && value?.URL) {
           tempArr.push({
-            url: value.URL,       
             usn: value.userName,  
             pass: value.password, 
+            url: value.URL,
           });
         }
       } catch (err) {
@@ -93,7 +91,7 @@ const Display = () => {
     }
     setItems(tempArr);
     console.log(items.URL, items.userName, items.password);
-  }, []);
+  }, [items]);
 
   return (
     <div className="bg-slate-800 w-[60vw] h-[85vh] my-10 mr-15 ml-5 text-slate-100 rounded-2xl border border-slate-700 shadow-lg overflow-hidden">

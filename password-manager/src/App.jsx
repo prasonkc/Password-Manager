@@ -6,6 +6,9 @@ import Display from "./components/Display";
 import PasswordGen from "./components/PasswordGen"
 
 function App() {
+    // State Variables for items
+    // Lifted state for items that is passed to Display and Manager
+  const [items, setItems] = useState([]);
   return (
     <>
       <div>
@@ -13,11 +16,11 @@ function App() {
         <div className="flex">
           {/* Left side - password import and generator */}
           <div className="flex-col">
-              <Manager />
+              <Manager items={items} setItems={setItems} />
               <PasswordGen />
           </div>
           {/* right side - password manager display */}
-            <Display />
+            <Display items={items} setItems={setItems}/>
         </div>
       </div>
     </>
