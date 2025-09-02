@@ -13,11 +13,16 @@ const Manager = ({items, setItems}) => {
   const handleAdd = (e) => {
     e.preventDefault();
 
+    // Add a uID counter in localstorage to provide unique uid to each item
+    const storedID = localStorage.getItem("uID");
+    uID.current = storedID ? parseInt(storedID) : 0;
+
     // Save to local storage with unique id
     const data = {userName, password, URL};
     localStorage.setItem(uID.current, JSON.stringify(data));
     uID.current += 1;
-
+    localStorage.setItem("uID", uID.current);
+    
     // Refresh the state by calling the item
     setItems(prev => [...prev, data])
   };

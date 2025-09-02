@@ -90,7 +90,6 @@ const Display = ({items, setItems}) => {
       }
     }
     setItems(tempArr);
-    console.log(items.URL, items.userName, items.password);
   }, [items]);
 
   return (
