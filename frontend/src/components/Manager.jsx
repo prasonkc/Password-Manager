@@ -2,29 +2,43 @@ import React, { useRef } from "react";
 import Button from "./Button";
 import { useState } from "react";
 
-const Manager = ({items, setItems}) => {
+const Manager = ({ items, setItems }) => {
   // States for data
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [URL, setURL] = useState("");
-  const uID = useRef(0);
 
   // Handler for the Add button
   const handleAdd = (e) => {
     e.preventDefault();
 
-    // Add a uID counter in localstorage to provide unique uid to each item
-    const storedID = localStorage.getItem("counter");
-    uID.current = storedID ? parseInt(storedID) : 0;
+    //Fetch the backend for post request and send the data to server 
+    fetch("http://localhost:3000/add-data", {
+      method: "POST",
+      // Define the content-type header to json
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // send the data to server in string format
+      body: JSON.stringify({
+        URL: URL,
+        userName: userName,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Data Saved: " + JSON.stringify(data.entry));
 
-    // Save to local storage with unique id
-    const data = {uID: uID.current, userName, password, URL};
-    localStorage.setItem(uID.current, JSON.stringify(data));
-    uID.current += 1;
-    localStorage.setItem("counter", uID.current);
-    
-    // Refresh the state by calling the item
-    setItems(prev => [...prev, data])
+        // Set the items for display
+        setItems([...items, data.entry]);
+
+        // Clear the data
+        setURL("");
+        setUserName("");
+        setPassword("");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -42,7 +56,10 @@ const Manager = ({items, setItems}) => {
             type="text"
             placeholder="Enter the website URL"
             value={URL}
-            onChange={(e) => {setURL(e.target.value)}}
+            name="url"
+            onChange={(e) => {
+              setURL(e.target.value);
+            }}
           />
         </div>
 
@@ -52,13 +69,17 @@ const Manager = ({items, setItems}) => {
             className="flex-1 h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
             type="text"
             placeholder="Username"
+            name="username"
             value={userName}
-            onChange={(e) => {setUserName(e.target.value)}}
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
           />
           <input
             className="flex-1 h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
             type="password"
             placeholder="Password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

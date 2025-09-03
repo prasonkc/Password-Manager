@@ -9,7 +9,6 @@ function App() {
   // State Variables for items
   // Lifted state for items that is passed to Display and Manager
   const [items, setItems] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   // Send Request to Backend
   useEffect(() => {
@@ -19,7 +18,6 @@ function App() {
     .catch(err => console.error("Error connecting to backend:", err));
   }, [])
 
-  
   return (
     <>
       <div>
