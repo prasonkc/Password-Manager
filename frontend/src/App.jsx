@@ -6,18 +6,18 @@ import Display from "./components/Display";
 import PasswordGen from "./components/PasswordGen"
 
 function App() {
-  // Send Request to Backend
-  useEffect(() => {
-    fetch("http://localhost:3000/")
-    .then(res => res.json())
-    .then(data => console.log("Backend Response: " + JSON.stringify(data)))
-    .catch(err => console.error("Error connecting to backend:", err));
-  }, [])
-  
 
     // State Variables for items
     // Lifted state for items that is passed to Display and Manager
   const [items, setItems] = useState([]);
+
+  // Send Request to Backend
+  useEffect(() => {
+    fetch("http://localhost:3000/get-data")
+    .then(res => res.json())
+    .then(data => console.log("Backend Response: " + JSON.stringify(data)))
+    .catch(err => console.error("Error connecting to backend:", err));
+  }, [])
   return (
     <>
       <div>
