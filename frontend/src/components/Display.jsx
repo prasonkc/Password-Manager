@@ -75,32 +75,25 @@ const Display = ({ items, setItems }) => {
     // Set up temporary variable
     const tempArr = [];
 
-    // Loop through all the items
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
+    // fetch data from Backend
+    fetch("http://localhost:3000/get-data")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Backend Response: " + data);
 
-      try {
-        // get the value for each key
-        const value = JSON.parse(localStorage.getItem(key));
+        // Loop through the data and assign it to temporary variable
+        const tempArr = data.map((i) => ({
+          usn: i.userName,
+          pass: i.password,
+          url: i.URL,
+        }));
 
-        //  Push if the object has expected structure in local storage {username, password, URL}
-        if (value?.userName && value?.password && value?.URL) {
-          tempArr.push({
-            uID: value.uID,
-            usn: value.userName,
-            pass: value.password,
-            url: value.URL,
-          });
-        }
-      } catch (err) {
-        console.log("Error Parsing localStorage item", key, err);
-      }
-    }
-    // setItems(tempArr);
-
-      // Only update if different
+      // only set if different
       const isSame = JSON.stringify(tempArr) === JSON.stringify(items);
       if (!isSame) setItems(tempArr);
+      })
+      .catch((err) => console.error("Error connecting to backend:", err));
+
   }, [items]);
 
   return (
