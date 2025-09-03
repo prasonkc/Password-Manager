@@ -9,7 +9,6 @@ function App() {
   // State Variables for items
   // Lifted state for items that is passed to Display and Manager
   const [items, setItems] = useState([]);
-
   return (
     <>
       <div>

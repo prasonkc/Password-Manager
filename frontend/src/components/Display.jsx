@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-function DisplayItem({ uID, url, usn, pass }) {
-  // initialize state for copy and cursor position
+function DisplayItem({ id, url, usn, pass, onDelete })  {
   const [copy, setCopy] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
@@ -19,10 +18,6 @@ function DisplayItem({ uID, url, usn, pass }) {
       // Automatically set copy variable to false after 800ms
       setTimeout(() => setCopy(false), 800);
     }
-  }
-
-  function deleteItem() {
-    localStorage.removeItem(uID);
   }
 
   return (
@@ -59,7 +54,7 @@ function DisplayItem({ uID, url, usn, pass }) {
 
           <button
             className="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-sm cursor-pointer"
-            onClick={deleteItem}
+            onClick={() => onDelete(id)}
           >
             Delete
           </button>
@@ -70,6 +65,14 @@ function DisplayItem({ uID, url, usn, pass }) {
 }
 
 const Display = ({ items, setItems }) => {
+  // Handle delete
+    function deleteItem(id) {
+    fetch(`http://localhost:3000/delete/${id}`)
+      .then((res) => res.json())
+      .then(() => setItems((prev) => prev.filter((item) => item.id !== id)))
+      .catch((err) => console.error(err));
+  }
+
   // Load all password from local storage on page reload
   useEffect(() => {
     // Set up temporary variable
@@ -89,12 +92,11 @@ const Display = ({ items, setItems }) => {
           url: i.URL,
         }));
 
-      // only set if different
-      const isSame = JSON.stringify(tempArr) === JSON.stringify(items);
-      if (!isSame) setItems(tempArr);
+        // only set if different
+        const isSame = JSON.stringify(tempArr) === JSON.stringify(items);
+        if (!isSame) setItems(tempArr);
       })
       .catch((err) => console.error("Error connecting to backend:", err));
-
   }, [items]);
 
   return (
@@ -115,11 +117,12 @@ const Display = ({ items, setItems }) => {
           items.map((item, i) => (
             // Render a component for each item
             <DisplayItem
-              uID={item.uID}
+              id={item.id}
               url={item.url}
               usn={item.usn}
               pass={item.pass}
               key={i}
+              onDelete={deleteItem}
             />
           ))
         ) : (
