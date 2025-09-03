@@ -63,3 +63,13 @@ app.get("/get-data", (req, res) => {
         res.status(500).json({ error: "Failed to fetch data" });
     });
 });
+
+// Delete Data
+app.get("/delete/:id", (req, res) => {
+    // Get the id from URL
+    const id = req.params.id;
+
+    UserData.findByIdAndDelete(id)
+    .then(result => res.json({ message: "Deleted successfully", result }))
+    .catch(err => res.status(500).json({ error: "Delete failed", details: err }));
+})

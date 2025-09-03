@@ -83,6 +83,7 @@ const Display = ({ items, setItems }) => {
 
         // Loop through the data and assign it to temporary variable
         const tempArr = data.map((i) => ({
+          id: i._id,
           usn: i.userName,
           pass: i.password,
           url: i.URL,
