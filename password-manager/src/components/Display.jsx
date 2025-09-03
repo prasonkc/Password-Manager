@@ -96,7 +96,11 @@ const Display = ({ items, setItems }) => {
         console.log("Error Parsing localStorage item", key, err);
       }
     }
-    setItems(tempArr);
+        // setItems(tempArr);
+
+      // Only update if different
+      const isSame = JSON.stringify(tempArr) === JSON.stringify(items);
+      if (!isSame) setItems(tempArr);
   }, [items]);
 
   return (
