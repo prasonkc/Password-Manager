@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 
 const PasswordGen = () => {
+  // declare state for password
   const [password, setPassword] = useState("");
 
   function generatePassword() {
@@ -9,6 +10,7 @@ const PasswordGen = () => {
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
     let newPass = "";
 
+    // create a random password
     for (let i = 0; i < 12; i++) {
       newPass += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -16,6 +18,7 @@ const PasswordGen = () => {
     setPassword(newPass);
   }
 
+  // copy password to clipboard
   function copyToClipboard() {
     if (password) {
       navigator.clipboard.writeText(password);
