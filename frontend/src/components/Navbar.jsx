@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 // Icon import
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
   return (
     // Navbar
     <nav className="flex items-center justify-between h-20 bg-slate-900 text-slate-100 p-10">
@@ -30,11 +31,12 @@ const Navbar = () => {
           <Link to="/password-generator">
             <li onClick={() => setOpen(false)}>Password Generator</li>
           </Link>
-        </ul> 
+        </ul>
       )}
 
       {/* Logo */}
       <div className="logo font-bold cursor-pointer">Password Manager</div>
+
       <ul className="flex gap-4">
         {/* <li className='hover:font-bold'><a href="#">Home</a></li>
             <li className='hover:font-bold'><a href="#">About</a></li>
