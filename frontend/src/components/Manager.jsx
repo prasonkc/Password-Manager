@@ -42,7 +42,7 @@ const Manager = ({ items, setItems }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 w-2xl mx-10 p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
+    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 w-[30vw] mx-10 p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
       <h1 className="text-center text-2xl font-semibold mb-6">
         Password Manager
       </h1>
@@ -64,9 +64,9 @@ const Manager = ({ items, setItems }) => {
         </div>
 
         {/* Username + Password */}
-        <div className="flex gap-4">
+        <div className="flex-col sm:flex-row">
           <input
-            className="flex-1 h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
+            className="w-[45%] h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center mr-12 mb-5"
             type="text"
             placeholder="Username"
             name="username"
@@ -76,7 +76,7 @@ const Manager = ({ items, setItems }) => {
             }}
           />
           <input
-            className="flex-1 h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
+            className="w-[45%] h-10 px-3 rounded-lg border border-slate-700 shadow-inner text-slate-100 text-center"
             type="password"
             placeholder="Password"
             name="password"

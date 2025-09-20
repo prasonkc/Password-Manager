@@ -9,9 +9,9 @@ const Navbar = () => {
             Password Manager
         </div>
         <ul className='flex gap-4'>
-            <li className='hover:font-bold'><a href="#">Home</a></li>
+            {/* <li className='hover:font-bold'><a href="#">Home</a></li>
             <li className='hover:font-bold'><a href="#">About</a></li>
-            <li className='hover:font-bold'><a href="#">Contact</a></li>
+            <li className='hover:font-bold'><a href="#">Contact</a></li> */}
         </ul>
     </nav>
   )
