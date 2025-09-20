@@ -27,14 +27,14 @@ const PasswordGen = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 w-[30vw] mx-auto p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
+    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-slate-100 w-[80vw] sm:w-[30vw] mx-auto p-6 my-10 rounded-2xl shadow-lg border border-slate-700">
       <h1 className="text-center text-2xl font-semibold mb-6">
         Password Generator
       </h1>
 
       {/* password generator div + copy */}
       <div className="flex">
-        <div className="w-1/2 m-auto text-center text-slate-100 bg-slate-800 border-slate-700 border rounded-xl h-10 flex items-center justify-around px-2">
+        <div className="w-full sm:w-1/2 m-auto text-center text-slate-100 bg-slate-800 border-slate-700 border rounded-xl h-10 flex items-center justify-around px-2">
           <input
             type="text"
             value={password}

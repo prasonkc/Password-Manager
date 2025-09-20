@@ -31,6 +31,10 @@ function App() {
 
         <Routes>
           <Route
+            path="/"
+            element={<Manager items={items} setItems={setItems} />}
+          />
+          <Route
             path="/password-manager"
             element={<Manager items={items} setItems={setItems} />}
           />
