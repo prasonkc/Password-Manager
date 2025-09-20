@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Manager from "./components/Manager";
 import Display from "./components/Display";
 import PasswordGen from "./components/PasswordGen";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 function App() {
   // State Variables for items
@@ -11,18 +12,26 @@ function App() {
   const [items, setItems] = useState([]);
   return (
     <>
-      <div>
-        <Navbar />
-        <div className="flex">
-          {/* Left side - password import and generator */}
-          <div className="flex-col">
+      <BrowserRouter>
+        <div>
+          <Navbar />
+          <div className="flex">
+            {/* Left side - password import and generator */}
+            <div className="flex-col">
               <Manager items={items} setItems={setItems} />
               <PasswordGen />
+            </div>
+            {/* right side - password manager display */}
+            <Display items={items} setItems={setItems} />
           </div>
-          {/* right side - password manager display */}
-            <Display items={items} setItems={setItems}/>
         </div>
-      </div>
+
+        <Routes>
+          <Route path="/password-manager" element={<Manager/>} />
+          <Route path="/password-display" element={<Display/>} />
+          <Route path="/password-generator" element={<PasswordGen/>} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
